@@ -1,0 +1,36 @@
+-- Ссылка на презентацию - https://docs.google.com/presentation/d/1nh7bFosdyNThxwnTvo9Cslu9WR81C5yWfleucL44VR8/edit?usp=sharing
+
+
+-- Колонки в таблице junction_regulator_pairs.tsv:
+
+junction_id - координаты интрона            
+cell_line - [a549, hela, both] в каких данных с циклогексимидом найден интрон          
+gene_name - ген, в котором есть этот интрон       
+kd_gene - регулятор 
+
+Данные с циклогексимидом:
+A549_log2fc_local - изменение локальной экспрессии в экспериментах на A549: log2(coeff * reads_chx / reads_ctrl). 
+                    Коэффициент coeff ~= 1.33 - разница в размерах библиотек.
+A549_delta_cosi - изменение доли сплайсинга в экспериментах на A549: cosi_chx - cosi_ctrl   
+HeLa_log2fc_local = log2(reads_chx / reads_ctrl) в экспериментах на HeLa
+HeLa_delta_cosi - изменение доли сплайсинга в экспериментах на HeLa: cosi_chx - cosi_ctrl
+
+GTEX:
+spearman_r_gtex - коэффициент корреляции Спирмена экспрессий гена с интроном и гена-регулятора в тканях (по данным GTEX)
+
+ENCODE нокдауны:
+KD_split_reads - количество сплит-ридов в образцах с нокдауном регулятора   
+KD_retention_reads - количество ридов, соответствующих удержанию интрона, в образцах с нокдауном регулятора   
+KD_ctrl_split_reads - количество сплит-ридов в контрольных образцах
+KD_ctrl_retention_reads - количество ридов, соответствующих удержанию интрона, в контрольных образцах 
+KD_cosi = KD_split_reads / (KD_split_reads + KD_retention_reads) - доля сплит-ридов в образцах с нокдауном регулятора             
+KD_ctrl_cosi = KD_ctrl_split_reads / (KD_ctrl_split_reads + KD_ctrl_retention_reads) - доля сплит-ридов в контрольных образцах
+KD_delta_cosi = KD_cosi -  KD_ctrl_cosi 
+KD_tpm_mean - средний TPM гена в образцах с нокдауном регулятора              
+KD_ctrl_tpm_mean - средний TPM гена в контрольных образцах
+KD_log2fc_expression = log2( KD_tpm_mean / KD_ctrl_tpm_mean)
+
+Сайты связывания регулятора:
+postar_peak - расстояние от интрона до ближайшего сайта связывания регулятора в БД POSTAR3          
+eclip_peak - расстояние от интрона до ближайшего сайта связывания регулятора в данных eCLIP
+             (трек - https://github.com/pervouchinelab/tracks/raw/master/peaks_merged.bb)
